@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobster Brewing™ - Live Inventory Risk Management for Maine Dealers</title>
+    <meta name="description" content="Lobster Brewing predicts live lobster mortality and shrinkage loss before it crashes your inventory. Maine dealers save $15K-$50K annually by reducing shrink 0.5-1%.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --maroon: #780000;
+            --lobster-red: #c1121f;
+            --cream: #fdf0d5;
+            --navy: #003049;
+            --slate-blue: #669bbc;
+            --danger: #c1121f;
+            --success: #2d6a4f;
+            --warning: #d4941e;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-gray: #424242;
+            --border: #e0e0e0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: #212121;
+            line-height: 1.5;
+        }
+
+        /* ============ LANDING PAGE ============ */
+        .landing-page {
+            display: none;
+        }
+
+        .landing-page.active {
+            display: block;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: 0.3px;
+        }
+
+        .logo span {
+            color: var(--lobster-red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #212121;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--lobster-red);
+        }
+
+        .btn-nav {
+            background: var(--lobster-red);
+            color: white;
+            border: none;
+            padding: 0.65rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .btn-nav:hover {
+            background: var(--maroon);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(193, 18, 31, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+            letter-spacing: -0.5px;
+        }
+
+        .hero-content h1 .highlight {
+            color: var(--lobster-red);
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #424242;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            background: var(--lobster-red);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            font-family: 'Open Sans', sans-serif;
+            box-shadow: 0 2px 8px rgba(193, 18, 31, 0.15);
+        }
+
+        .btn-primary:hover {
+            background: var(--maroon);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(193, 18, 31, 0.25);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--navy);
+            border: 1px solid var(--navy);
+            padding: 0.95rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            background: var(--navy);
+            color: white;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--lobster-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: #616161;
+            font-weight: 500;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--slate-blue) 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 48, 73, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 500;
+        }
+
+        /* Section */
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section h2 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            letter-spacing: -0.3px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #424242;
+            max-width: 700px;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* Problem Section */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .problem-card {
+            padding: 2.5rem;
+            background: var(--white);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .problem-card:hover {
+            border-color: var(--lobster-red);
+            box-shadow: 0 4px 16px rgba(193, 18, 31, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .problem-card h3 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .problem-card p {
+            font-size: 1rem;
+            color: #424242;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* Solution Section */
+        .solution-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .solution-content h3 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 2.2rem;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .solution-content p {
+            font-size: 1.05rem;
+            color: #424242;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .solution-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .feature-text h4 {
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .feature-text p {
+            font-size: 0.95rem;
+            color: #424242;
+            margin: 0;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .solution-visual {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--slate-blue) 100%);
+            border-radius: 8px;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(0, 48, 73, 0.12);
+            color: white;
+            font-weight: 500;
+        }
+
+        /* ROI Section */
+        .roi-section {
+            background: var(--navy);
+            color: white;
+            padding: 4rem;
+            border-radius: 8px;
+            margin-top: 4rem;
+        }
+
+        .roi-section h3 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .roi-section > p {
+            opacity: 0.85;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .roi-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .input-group input {
+            padding: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            font-family: 'Open Sans', sans-serif;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--cream);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .roi-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .roi-result {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .roi-result-label {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-weight: 600;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .roi-result-value {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--cream);
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2.5rem;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--lobster-red);
+            background: linear-gradient(to bottom, rgba(193, 18, 31, 0.02), rgba(193, 18, 31, 0.01));
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(193, 18, 31, 0.12);
+        }
+
+        .pricing-card:hover {
+            border-color: var(--lobster-red);
+            box-shadow: 0 4px 16px rgba(193, 18, 31, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .pricing-name {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--lobster-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-period {
+            font-size: 0.95rem;
+            color: #616161;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2.5rem;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            color: #424242;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        .pricing-features li:before {
+            content: "✓ ";
+            color: var(--lobster-red);
+            font-weight: 700;
+            margin-right: 0.6rem;
+        }
+
+        .pricing-card button {
+            width: 100%;
+            padding: 0.95rem;
+            background: var(--lobster-red);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Open Sans', sans-serif;
+            box-shadow: 0 2px 8px rgba(193, 18, 31, 0.15);
+        }
+
+        .pricing-card button:hover {
+            background: var(--maroon);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(193, 18, 31, 0.25);
+        }
+
+        /* CTA Final */
+        .cta-final {
+            background: var(--navy);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+            border-radius: 8px;
+            margin: 4rem 0;
+        }
+
+        .cta-final h2 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .cta-final p {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.85;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .cta-final button {
+            background: var(--lobster-red);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Open Sans', sans-serif;
+            box-shadow: 0 2px 8px rgba(193, 18, 31, 0.15);
+        }
+
+        .cta-final button:hover {
+            background: var(--maroon);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(193, 18, 31, 0.25);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: rgba(255, 255, 255, 0.75);
+            padding: 3rem 2rem;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        footer a {
+            color: var(--cream);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ============ DASHBOARD PAGE ============ */
+
+        .dashboard-page {
+            display: none;
+        }
+
+        .dashboard-page.active {
+            display: flex;
+        }
+
+        .dashboard-wrapper {
+            display: flex;
+            min-height: 100vh;
+            background: var(--light-gray);
+        }
+
+        /* Sidebar */
+        .dashboard-sidebar {
+            width: 260px;
+            background: var(--navy);
+            color: white;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 2px 0 8px rgba(0, 48, 73, 0.15);
+        }
+
+        .dashboard-main {
+            margin-left: 260px;
+            flex: 1;
+            padding: 2.5rem;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            color: white;
+            letter-spacing: 0.2px;
+        }
+
+        .sidebar-logo span {
+            color: var(--cream);
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            margin-bottom: 3rem;
+        }
+
+        .sidebar-item {
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.75);
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-radius: 0 4px 4px 0;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .sidebar-item:hover {
+            color: white;
+            border-left-color: var(--cream);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar-item.active {
+            color: white;
+            border-left-color: var(--cream);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .sidebar-logout {
+            margin-top: auto;
+            padding: 1rem 1.2rem;
+            background: rgba(193, 18, 31, 0.15);
+            color: white;
+            border: 1px solid rgba(193, 18, 31, 0.3);
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .sidebar-logout:hover {
+            background: rgba(193, 18, 31, 0.25);
+            border-color: var(--lobster-red);
+        }
+
+        .page-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .page-title {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.3px;
+        }
+
+        .page-subtitle {
+            color: #616161;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--lobster-red);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-label {
+            font-size: 0.75rem;
+            color: #616161;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .card-value {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 0.4rem;
+            letter-spacing: -0.3px;
+        }
+
+        .card-value.danger {
+            color: var(--lobster-red);
+        }
+
+        .card-value.success {
+            color: var(--success);
+        }
+
+        .card-value.warning {
+            color: var(--warning);
+        }
+
+        .card-subtext {
+            font-size: 0.9rem;
+            color: #616161;
+            font-weight: 400;
+        }
+
+        /* Alerts Box */
+        .alert-box {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--lobster-red);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .alert-title {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .alert-item {
+            padding: 1.2rem;
+            background: var(--light-gray);
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border-left: 3px solid;
+            transition: all 0.2s ease;
+        }
+
+        .alert-item.critical {
+            border-left-color: var(--lobster-red);
+            background: rgba(193, 18, 31, 0.05);
+        }
+
+        .alert-item.warning {
+            border-left-color: var(--warning);
+            background: rgba(212, 148, 30, 0.05);
+        }
+
+        .alert-item.success {
+            border-left-color: var(--success);
+            background: rgba(45, 106, 79, 0.05);
+        }
+
+        .alert-item-title {
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .alert-item-text {
+            color: #424242;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .alert-item-action {
+            margin-top: 0.8rem;
+            font-weight: 600;
+            color: var(--lobster-red);
+            font-size: 0.85rem;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        /* Table */
+        .table-section {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .table-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--light-gray);
+        }
+
+        .table-header h3 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--light-gray);
+        }
+
+        th {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            font-weight: 700;
+            color: #616161;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            color: #424242;
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        tr:hover {
+            background: var(--light-gray);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .badge.critical {
+            background: rgba(193, 18, 31, 0.1);
+            color: var(--maroon);
+        }
+
+        .badge.high {
+            background: rgba(212, 148, 30, 0.1);
+            color: #8d5f1f;
+        }
+
+        .badge.medium {
+            background: rgba(102, 155, 188, 0.1);
+            color: #003049;
+        }
+
+        .badge.low {
+            background: rgba(45, 106, 79, 0.1);
+            color: #1b4d35;
+        }
+
+        .form-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .form-section h3 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.6rem;
+            font-size: 0.9rem;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 0.85rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: 'Open Sans', sans-serif;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--lobster-red);
+            box-shadow: 0 0 0 2px rgba(193, 18, 31, 0.08);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-submit {
+            padding: 0.85rem 2rem;
+            background: var(--lobster-red);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Open Sans', sans-serif;
+            box-shadow: 0 2px 8px rgba(193, 18, 31, 0.15);
+        }
+
+        .btn-submit:hover {
+            background: var(--maroon);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(193, 18, 31, 0.25);
+        }
+
+        .btn-secondary-submit {
+            padding: 0.85rem 2rem;
+            background: transparent;
+            color: var(--navy);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .btn-secondary-submit:hover {
+            border-color: var(--lobster-red);
+            color: var(--lobster-red);
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 3rem 1.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 3rem 1.5rem;
+            }
+
+            .section h2 {
+                font-size: 1.8rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .dashboard-sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .dashboard-main {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .solution-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-visual,
+            .solution-visual {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ LANDING PAGE ============ -->
+    <div class="landing-page active">
+        <nav>
+            <div class="nav-container">
+                <div class="logo">Lobster<span>Brewing</span></div>
+                <div class="nav-links">
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="javascript:void(0)" onclick="scrollToROI()">Calculator</a>
+                    <button class="btn-nav" onclick="goToDashboard()">See Demo</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Your inventory is <span class="highlight">disappearing.</span> Stop guessing why.</h1>
+                <p>Lobster Brewing predicts live lobster mortality before it crashes your margin. Maine dealers using Lobster Brewing reduce shrinkage by 0.5–1% and recover $15K–$50K annually. Your inventory is too valuable to lose to intuition.</p>
+                
+                <div class="hero-cta">
+                    <button class="btn-primary" onclick="goToDashboard()">See Live Demo</button>
+                    <button class="btn-secondary" onclick="scrollToSection('how-it-works')">Learn More</button>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">2%</div>
+                        <div class="stat-label">Average dealer shrinkage loss</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">$120K+</div>
+                        <div class="stat-label">Annual cost (mid-sized dealers)</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">6–12x</div>
+                        <div class="stat-label">ROI in year 1</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">~300</div>
+                        <div class="stat-label">Active Maine dealers</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">Live Dashboard Preview →</div>
+        </section>
+
+        <!-- Problem Section -->
+        <section class="section" id="how-it-works">
+            <div class="section-header">
+                <h2>The Reality Every Dealer Knows</h2>
+                <p class="section-subtitle">You're managing massive inventory risk with spreadsheets and phone calls. It's costing you real money every single day.</p>
+            </div>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>💰 You're Bleeding Margin Daily</h3>
+                    <p>Live lobster is fragile. Your 2% shrink loss on $1M annual throughput costs you $20K/year in pure profit bleed. A bad week? That's $5–15K down the drain. And there's no system to catch it before it happens.</p>
+                </div>
+
+                <div class="problem-card">
+                    <h3>🎲 Blind Buy/Sell Decisions</h3>
+                    <p>You set daily intake prices and shipment schedules with spreadsheets and gut feeling. You don't know which lots are about to crash until the call comes in—weak product, angry customers. By then, it's too late to protect margin.</p>
+                </div>
+
+                <div class="problem-card">
+                    <h3>⏰ Wasted Operational Hours</h3>
+                    <p>Your team spends hours manually tracking inventory age, calculating risk, making guesses. You're reactive, not predictive. This wastes labor and gives competitors who stay ahead of shrink a real, measurable edge.</p>
+                </div>
+
+                <div class="problem-card">
+                    <h3>📉 No Way to Improve</h3>
+                    <p>You've got no system to track which lots actually shrank, why, or how your decisions affected the outcome. No data means you can't tune your operation. You repeat the same mistakes week after week.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section class="section">
+            <div class="solution-container">
+                <div class="solution-content">
+                    <h2>Meet Lobster Brewing</h2>
+                    <h3>Stop Guessing. Start Protecting Your Margin.</h3>
+                    <p>Lobster Brewing is built for dealers who can't afford to lose inventory. Every morning, it analyzes your live product by age, size, shell type, and season. It assigns each lot a survival score, calculates your exact dollar exposure, and tells you what to do about it.</p>
+                    
+                    <p><strong>Real-time visibility. Predictive intelligence. Actionable recommendations.</strong></p>
+
+                    <div class="solution-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">🎯</div>
+                            <div class="feature-text">
+                                <h4>Daily Risk Alerts</h4>
+                                <p>Know which lots are at risk, right now. See exact dollar exposure.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">📊</div>
+                            <div class="feature-text">
+                                <h4>Predictive Mortality</h4>
+                                <p>Science-based shrink curves tuned to your facility.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">💡</div>
+                            <div class="feature-text">
+                                <h4>Actionable Recommendations</h4>
+                                <p>Adjust intake prices, accelerate shipments, move to processing.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🧠</div>
+                            <div class="feature-text">
+                                <h4>Machine Learning</h4>
+                                <p>Logs actual outcomes. Gets smarter every week.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">⚙️</div>
+                            <div class="feature-text">
+                                <h4>Total Control</h4>
+                                <p>Tune mortality baselines to match your exact facility.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">⚡</div>
+                            <div class="feature-text">
+                                <h4>Professional Grade</h4>
+                                <p>Built for serious operations. Fast. No complexity.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="solution-visual">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📈</div>
+                        <p>Maritime-Grade Monitoring</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROI Section -->
+            <div class="roi-section" id="roi-calc">
+                <h3>What's It Worth to You?</h3>
+                <p>Enter your numbers. See your real ROI.</p>
+
+                <div class="roi-inputs">
+                    <div class="input-group">
+                        <label for="annual-throughput">Annual Throughput (lbs)</label>
+                        <input type="number" id="annual-throughput" value="5000000" placeholder="5000000">
+                    </div>
+                    <div class="input-group">
+                        <label for="current-shrink">Current Shrinkage Rate (%)</label>
+                        <input type="number" id="current-shrink" value="2" placeholder="2" step="0.1">
+                    </div>
+                </div>
+
+                <div class="roi-results">
+                    <div class="roi-result">
+                        <div class="roi-result-label">Annual Shrink Loss Today</div>
+                        <div class="roi-result-value" id="current-loss">$100,000</div>
+                    </div>
+                    <div class="roi-result">
+                        <div class="roi-result-label">Loss With Lobster Brewing</div>
+                        <div class="roi-result-value" id="new-loss">$62,500</div>
+                    </div>
+                    <div class="roi-result">
+                        <div class="roi-result-label">Margin Recovered/Year</div>
+                        <div class="roi-result-value" id="recovered">$37,500</div>
+                    </div>
+                    <div class="roi-result">
+                        <div class="roi-result-label">Your ROI</div>
+                        <div class="roi-result-value" id="roi-display">8.9x</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="section" id="pricing">
+            <div class="section-header">
+                <h2>Simple Pricing. Real ROI.</h2>
+                <p class="section-subtitle">Pick the plan that matches your operation. No surprises. No complex tiers.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-name">Starter</div>
+                    <div class="pricing-price">$199</div>
+                    <div class="pricing-period">per month, annually</div>
+                    <ul class="pricing-features">
+                        <li>1–2 tank sections</li>
+                        <li>Daily risk alerts</li>
+                        <li>Basic mortality curves</li>
+                        <li>Email support</li>
+                        <li>14-day free trial</li>
+                    </ul>
+                    <button onclick="goToDashboard()">See Demo</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-name">Pro ⭐</div>
+                    <div class="pricing-price">$349</div>
+                    <div class="pricing-period">per month, annually</div>
+                    <ul class="pricing-features">
+                        <li>Multiple tanks/sections</li>
+                        <li>AI-powered recommendations</li>
+                        <li>Custom mortality tuning</li>
+                        <li>Outcome tracking & learning</li>
+                        <li>Priority email & phone</li>
+                    </ul>
+                    <button onclick="goToDashboard()">See Demo</button>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-name">Enterprise</div>
+                    <div class="pricing-price">$599</div>
+                    <div class="pricing-period">per month, custom terms</div>
+                    <ul class="pricing-features">
+                        <li>Multi-location</li>
+                        <li>API access</li>
+                        <li>Advanced analytics</li>
+                        <li>Dedicated support</li>
+                        <li>Custom integrations</li>
+                    </ul>
+                    <button onclick="goToDashboard()">Contact Sales</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="section">
+            <div class="cta-final">
+                <h2>Stop Losing Money to Shrinkage</h2>
+                <p>See the live dashboard. Understand your risk exposure. Watch your margin recover. No commitment. No credit card. Just data-driven protection.</p>
+                <button onclick="goToDashboard()">Explore the Live Demo</button>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Lobster Brewing™. Built for Maine lobster dealers who demand better. | <a href="mailto:hello@lobsterbrewing.com">hello@lobsterbrewing.com</a></p>
+        </footer>
+    </div>
+
+    <!-- ============ DASHBOARD PAGE ============ -->
+    <div class="dashboard-page">
+        <div class="dashboard-wrapper">
+            <div class="dashboard-sidebar">
+                <div class="sidebar-logo">Lobster<span>Brewing</span></div>
+                
+                <div class="sidebar-nav">
+                    <div class="sidebar-item active" onclick="switchPage('dashboard', this)">📊 Dashboard</div>
+                    <div class="sidebar-item" onclick="switchPage('inventory', this)">📦 Inventory</div>
+                    <div class="sidebar-item" onclick="switchPage('alerts', this)">🚨 Risk Alerts</div>
+                    <div class="sidebar-item" onclick="switchPage('recommendations', this)">💡 Recommendations</div>
+                    <div class="sidebar-item" onclick="switchPage('analytics', this)">📈 Analytics</div>
+                    <div class="sidebar-item" onclick="switchPage('settings', this)">⚙️ Settings</div>
+                </div>
+
+                <button class="sidebar-logout" onclick="backToLanding()">← Back to Site</button>
+            </div>
+
+            <div class="dashboard-main">
+                <!-- Dashboard Page -->
+                <div id="dashboard-page" class="page active">
+                    <div class="page-header">
+                        <h1 class="page-title">Live Risk Dashboard</h1>
+                        <p class="page-subtitle">Real-time inventory analysis. Predictive mortality alerts. Actionable recommendations.</p>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <div class="card-label">Total Live Inventory</div>
+                            <div class="card-value">12,450 lbs</div>
+                            <div class="card-subtext">Across all lots in facility</div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-label">Average Holding Days</div>
+                            <div class="card-value">4.2 days</div>
+                            <div class="card-subtext">Current age of inventory</div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-label">Projected Shrink Exposure</div>
+                            <div class="card-value danger">$4,820</div>
+                            <div class="card-subtext">Risk in next 48 hours</div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-label">Overall Risk Score</div>
+                            <div class="card-value warning">68/100</div>
+                            <div class="card-subtext">⚠️ HIGH ALERT</div>
+                        </div>
+                    </div>
+
+                    <div class="alert-box">
+                        <div class="alert-title">🎯 Critical Action Items</div>
+                        
+                        <div class="alert-item critical">
+                            <div class="alert-item-title">🔴 URGENT: 1.25lb Hard Shell at Critical Risk</div>
+                            <div class="alert-item-text">Lot received 5 days ago showing 78% projected loss rate. Holding time exceeds safe margins. Each additional day costs $600+ in shrinkage.</div>
+                            <div class="alert-item-action">→ IMMEDIATE ACTION: Ship within 24 hours OR reduce intake price by $0.25/lb to slow volume</div>
+                        </div>
+
+                        <div class="alert-item warning">
+                            <div class="alert-item-title">⚠️ MONITOR: Shedder Inventory Fragility</div>
+                            <div class="alert-item-text">Soft shells are more sensitive to stress. Current facility temperature at 52°F. Aeration in west tank at standard levels.</div>
+                            <div class="alert-item-action">→ RECOMMENDED: Check aeration sensors; increase oxygen flow if available</div>
+                        </div>
+
+                        <div class="alert-item success">
+                            <div class="alert-item-title">✅ OPPORTUNITY: Large Hard Shells Holding Strong</div>
+                            <div class="alert-item-text">2lb+ inventory in excellent condition (1 day average age, strong grading). Market spread is favorable. You have tank capacity.</div>
+                            <div class="alert-item-action">→ OPPORTUNITY: Increase buy price by $0.10/lb tomorrow to capture volume</div>
+                        </div>
+                    </div>
+
+                    <div class="table-section">
+                        <div class="table-header">
+                            <h3>Inventory by Risk Level</h3>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Size Category</th>
+                                    <th>Shell Type</th>
+                                    <th>Lbs in Stock</th>
+                                    <th>Days Held</th>
+                                    <th>Risk Level</th>
+                                    <th>Dollar Exposure</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1.0 lb</td>
+                                    <td>Hard</td>
+                                    <td>2,100</td>
+                                    <td>3 days</td>
+                                    <td><span class="badge medium">MEDIUM</span></td>
+                                    <td>$1,260</td>
+                                    <td>Monitor</td>
+                                </tr>
+                                <tr>
+                                    <td>1.25 lb</td>
+                                    <td>Hard</td>
+                                    <td>4,200</td>
+                                    <td>5 days</td>
+                                    <td><span class="badge critical">CRITICAL</span></td>
+                                    <td>$3,276</td>
+                                    <td><strong style="color: var(--lobster-red);">SHIP NOW</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>1.5 lb</td>
+                                    <td>Hard</td>
+                                    <td>2,800</td>
+                                    <td>2 days</td>
+                                    <td><span class="badge low">LOW</span></td>
+                                    <td>$84</td>
+                                    <td>Hold</td>
+                                </tr>
+                                <tr>
+                                    <td>2.0+ lb</td>
+                                    <td>Hard</td>
+                                    <td>1,900</td>
+                                    <td>1 day</td>
+                                    <td><span class="badge low">LOW</span></td>
+                                    <td>$0</td>
+                                    <td>Expand</td>
+                                </tr>
+                                <tr>
+                                    <td>1.25 lb</td>
+                                    <td>Soft</td>
+                                    <td>1,450</td>
+                                    <td>6 days</td>
+                                    <td><span class="badge high">HIGH</span></td>
+                                    <td>$435</td>
+                                    <td>Process</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Alerts Page -->
+                <div id="alerts-page" class="page">
+                    <div class="page-header">
+                        <h1 class="page-title">Risk Alerts</h1>
+                        <p class="page-subtitle">All monitored lots sorted by urgency. Take action before shrinkage happens.</p>
+                    </div>
+
+                    <div class="table-section">
+                        <div class="table-header">
+                            <h3>Active Risk Items</h3>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Lot ID</th>
+                                    <th>Size / Shell</th>
+                                    <th>Days Held</th>
+                                    <th>Lbs at Risk</th>
+                                    <th>Risk Level</th>
+                                    <th>$ Exposure</th>
+                                    <th>Projected Loss</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>LOT-001</td>
+                                    <td>1.25 lb / Hard</td>
+                                    <td>5 days</td>
+                                    <td>4,200</td>
+                                    <td><span class="badge critical">CRITICAL</span></td>
+                                    <td>$3,276</td>
+                                    <td>328 lbs (7.8%)</td>
+                                </tr>
+                                <tr>
+                                    <td>LOT-002</td>
+                                    <td>1.25 lb / Soft</td>
+                                    <td>6 days</td>
+                                    <td>1,450</td>
+                                    <td><span class="badge high">HIGH</span></td>
+                                    <td>$435</td>
+                                    <td>174 lbs (12%)</td>
+                                </tr>
+                                <tr>
+                                    <td>LOT-003</td>
+                                    <td>1.0 lb / Hard</td>
+                                    <td>3 days</td>
+                                    <td>2,100</td>
+                                    <td><span class="badge medium">MEDIUM</span></td>
+                                    <td>$1,260</td>
+                                    <td>63 lbs (3%)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recommendations Page -->
+                <div id="recommendations-page" class="page">
+                    <div class="page-header">
+                        <h1 class="page-title">AI Recommendations</h1>
+                        <p class="page-subtitle">Specific, data-driven decisions to protect your margin today.</p>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>🎯 Price Grid Adjustment</h3>
+                        <p><strong>Action:</strong> Reduce 1.25lb hard shell intake price by $0.25/lb starting tomorrow.</p>
+                        <p><strong>Why:</strong> Current holdings at 5+ days old approaching critical risk. Slower intake reduces facility pressure and shrink exposure.</p>
+                        <p style="margin-top: 1rem; font-weight: 700; color: var(--lobster-red);">Expected Impact: Save $850/week in avoided shrinkage</p>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>⚙️ Inventory Movement Priority</h3>
+                        <p><strong>Action:</strong> Prioritize 1.25lb soft shell lot (LOT-002) for shipment or processing within 24 hours.</p>
+                        <p><strong>Why:</strong> 6 days in holding for soft shells exceeds safe margin threshold. Each additional day increases loss probability by 3%.</p>
+                        <p style="margin-top: 1rem; font-weight: 700; color: var(--success);">Expected Impact: Preserve $435 in margin</p>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>✅ Opportunistic Buy Signal</h3>
+                        <p><strong>Action:</strong> Increase 2.0+ lb hard shell intake price by $0.10/lb.</p>
+                        <p><strong>Why:</strong> Your large hard shells holding well (1 day average, strong condition). Spread is favorable. You have capacity to scale volume safely.</p>
+                        <p style="margin-top: 1rem; font-weight: 700; color: var(--success);">Expected Impact: Capture additional $300+ margin on 3,000 lbs volume</p>
+                    </div>
+                </div>
+
+                <!-- Settings Page -->
+                <div id="settings-page" class="page">
+                    <div class="page-header">
+                        <h1 class="page-title">Facility Configuration</h1>
+                        <p class="page-subtitle">Customize Lobster Brewing to your exact operation.</p>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>🏗️ Facility Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="facility-name">Facility Name</label>
+                                <input type="text" id="facility-name" value="Acme Lobster Dealers">
+                            </div>
+                            <div class="form-group">
+                                <label for="facility-location">Location</label>
+                                <input type="text" id="facility-location" value="Portland, Maine">
+                            </div>
+                            <div class="form-group">
+                                <label for="facility-capacity">Tank Capacity (lbs)</label>
+                                <input type="number" id="facility-capacity" value="20000">
+                            </div>
+                            <div class="form-group">
+                                <label for="facility-throughput">Weekly Throughput (lbs)</label>
+                                <input type="number" id="facility-throughput" value="100000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>📊 Mortality Baselines (Tuned to Your Facility)</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="mortality-hard">Hard Shell Daily Loss %</label>
+                                <input type="number" id="mortality-hard" value="0.5" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label for="mortality-soft">Soft Shell Daily Loss %</label>
+                                <input type="number" id="mortality-soft" value="1.5" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label for="season-factor">Summer Risk Factor (July–Aug)</label>
+                                <input type="number" id="season-factor" value="1.3" step="0.1">
+                            </div>
+                        </div>
+                        <p style="color: #616161; margin-top: 1rem; font-size: 0.95rem; font-weight: 400;">Update these based on actual facility performance. Accuracy improves as you log outcomes.</p>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>💳 Current Plan</h3>
+                        <div style="color: #424242;">
+                            <p><strong style="color: var(--navy);">Plan:</strong> Lobster Brewing Pro – $349/month</p>
+                            <p><strong style="color: var(--navy);">Billing Date:</strong> March 1, 2025</p>
+                            <p><strong style="color: var(--navy);">Status:</strong> <span style="color: var(--success); font-weight: 700;">Active</span></p>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn-submit" onclick="saveSettings()">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============ ROI CALCULATOR ============
+        document.getElementById('annual-throughput')?.addEventListener('input', calculateROI);
+        document.getElementById('current-shrink')?.addEventListener('input', calculateROI);
+
+        function calculateROI() {
+            const throughput = parseFloat(document.getElementById('annual-throughput').value) || 5000000;
+            const shrinkRate = parseFloat(document.getElementById('current-shrink').value) || 2;
+
+            const currentLoss = (throughput * shrinkRate) / 100;
+            const improvement = 0.75;
+            const newLoss = currentLoss - ((throughput * improvement) / 100);
+            const recovered = currentLoss - newLoss;
+            const annualCost = 349 * 12;
+            const roi = recovered / annualCost;
+
+            document.getElementById('current-loss').textContent = '$' + currentLoss.toLocaleString('en-US', { maximumFractionDigits: 0 });
+            document.getElementById('new-loss').textContent = '$' + newLoss.toLocaleString('en-US', { maximumFractionDigits: 0 });
+            document.getElementById('recovered').textContent = '$' + recovered.toLocaleString('en-US', { maximumFractionDigits: 0 });
+            document.getElementById('roi-display').textContent = roi.toFixed(1) + 'x';
+        }
+
+        calculateROI();
+
+        // ============ NAVIGATION ============
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToROI() {
+            document.getElementById('roi-calc').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function goToDashboard() {
+            document.querySelector('.landing-page').classList.remove('active');
+            document.querySelector('.dashboard-page').classList.add('active');
+        }
+
+        function backToLanding() {
+            document.querySelector('.dashboard-page').classList.remove('active');
+            document.querySelector('.landing-page').classList.add('active');
+        }
+
+        function switchPage(pageName, navItem) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+            
+            document.getElementById(pageName + '-page').classList.add('active');
+            navItem.classList.add('active');
+        }
+
+        function saveSettings() {
+            alert('✅ Settings saved successfully.');
+        }
+    </script>
+
+</body>
+</html>
